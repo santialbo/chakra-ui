@@ -8,7 +8,7 @@ export type ClickableProps = SafeMerge<
   PropsOf<typeof chakra.button>
 >
 
-const Clickable = React.forwardRef(
+const Clickable: React.FC<ClickableProps> = React.forwardRef(
   (props: ClickableProps, ref: React.Ref<any>) => {
     const clickable = useClickable({ ...props, ref })
     return <chakra.button display="inline-flex" {...clickable} />

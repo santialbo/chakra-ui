@@ -32,7 +32,7 @@ export type SliderProps = UseSliderProps &
  * @see Docs     https://chakra-ui.com/components/slider
  * @see WAI-ARIA https://www.w3.org/TR/wai-aria-practices/#slider
  */
-export const Slider = React.forwardRef(function Slider(
+export const Slider: React.FC<SliderProps> = React.forwardRef(function Slider(
   props: SliderProps,
   ref: React.Ref<any>,
 ) {

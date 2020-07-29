@@ -85,29 +85,28 @@ export type PopoverContentProps = PropsOf<typeof chakra.section>
  * PopoverContent includes all accessibility
  * requirements for a popover
  */
-export const PopoverContent = React.forwardRef(function PopoverContent(
-  props: PopoverContentProps,
-  ref: Ref<any>,
-) {
-  const { getPopoverProps } = usePopoverContext()
-  const popoverProps = getPopoverProps(props, ref)
+export const PopoverContent: React.FC<PopoverContentProps> = React.forwardRef(
+  function PopoverContent(props: PopoverContentProps, ref: Ref<any>) {
+    const { getPopoverProps } = usePopoverContext()
+    const popoverProps = getPopoverProps(props, ref)
 
-  const styles = useStyles()
-  const contentStyles = {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    ...styles.content,
-  }
+    const styles = useStyles()
+    const contentStyles = {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      ...styles.content,
+    }
 
-  return (
-    <chakra.section
-      className={cx("chakra-popover__content")}
-      {...popoverProps}
-      __css={contentStyles}
-    />
-  )
-})
+    return (
+      <chakra.section
+        className={cx("chakra-popover__content")}
+        {...popoverProps}
+        __css={contentStyles}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   PopoverContent.displayName = "PopoverContent"
@@ -119,29 +118,28 @@ export type PopoverHeaderProps = PropsOf<typeof chakra.header>
  * PopoverHeader is the accessible header or label
  * for the popover's content and it's first announced by screenreaders.
  */
-export const PopoverHeader = React.forwardRef(function PopoverHeader(
-  props: PopoverHeaderProps,
-  ref: Ref<any>,
-) {
-  const { headerId, setHasHeader } = usePopoverContext()
+export const PopoverHeader: React.FC<PopoverHeaderProps> = React.forwardRef(
+  function PopoverHeader(props: PopoverHeaderProps, ref: Ref<any>) {
+    const { headerId, setHasHeader } = usePopoverContext()
 
-  useEffect(() => {
-    setHasHeader.on()
-    return () => setHasHeader.off()
-  }, [setHasHeader])
+    useEffect(() => {
+      setHasHeader.on()
+      return () => setHasHeader.off()
+    }, [setHasHeader])
 
-  const styles = useStyles()
+    const styles = useStyles()
 
-  return (
-    <chakra.header
-      {...props}
-      className={cx("chakra-popover__header", props.className)}
-      id={headerId}
-      ref={ref}
-      __css={styles.header}
-    />
-  )
-})
+    return (
+      <chakra.header
+        {...props}
+        className={cx("chakra-popover__header", props.className)}
+        id={headerId}
+        ref={ref}
+        __css={styles.header}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   PopoverHeader.displayName = "PopoverHeader"
@@ -153,29 +151,28 @@ export type PopoverBodyProps = PropsOf<typeof chakra.div>
  * PopoverBody is the main content area for the popover. Should contain
  * at least one interactive element.
  */
-export const PopoverBody = React.forwardRef(function PopoverBody(
-  props: PopoverBodyProps,
-  ref: Ref<any>,
-) {
-  const { bodyId, setHasBody } = usePopoverContext()
+export const PopoverBody: React.FC<PopoverBodyProps> = React.forwardRef(
+  function PopoverBody(props: PopoverBodyProps, ref: Ref<any>) {
+    const { bodyId, setHasBody } = usePopoverContext()
 
-  useEffect(() => {
-    setHasBody.on()
-    return () => setHasBody.off()
-  }, [setHasBody])
+    useEffect(() => {
+      setHasBody.on()
+      return () => setHasBody.off()
+    }, [setHasBody])
 
-  const styles = useStyles()
+    const styles = useStyles()
 
-  return (
-    <chakra.div
-      {...props}
-      className={cx("chakra-popover__body", props.className)}
-      id={bodyId}
-      ref={ref}
-      __css={styles.body}
-    />
-  )
-})
+    return (
+      <chakra.div
+        {...props}
+        className={cx("chakra-popover__body", props.className)}
+        id={bodyId}
+        ref={ref}
+        __css={styles.body}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   PopoverBody.displayName = "PopoverBody"

@@ -38,7 +38,7 @@ type InputProps = Omit<PropsOf<"input">, OmittedTypes> &
 // Create an input that consumes useFormControl
 type Props = { focusBorderColor?: string; errorBorderColor?: string }
 
-const Input = React.forwardRef(
+const Input: React.FC<InputProps> = React.forwardRef(
   (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
     const styles = useMultiStyleConfig("Input", props)
     const inputProps = useFormControl<HTMLInputElement>(props)

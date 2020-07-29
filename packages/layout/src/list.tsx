@@ -25,7 +25,10 @@ export type ListProps = PropsOf<typeof chakra.ul> & ListOptions
  *
  * @see Docs https://chakra-ui.com/components/list
  */
-export const List = forwardRef<ListProps>(function List(props, ref) {
+export const List: React.FC<ListProps> = forwardRef<ListProps>(function List(
+  props,
+  ref,
+) {
   const {
     children,
     styleType = "none",
@@ -61,27 +64,25 @@ if (__DEV__) {
   List.displayName = "List"
 }
 
-export const OrderedList = forwardRef<ListProps>(function OrderedList(
-  props,
-  ref,
-) {
-  return (
-    <List ref={ref} as="ol" styleType="decimal" marginLeft="1em" {...props} />
-  )
-})
+export const OrderedList: React.FC<ListProps> = forwardRef<ListProps>(
+  function OrderedList(props, ref) {
+    return (
+      <List ref={ref} as="ol" styleType="decimal" marginLeft="1em" {...props} />
+    )
+  },
+)
 
 if (__DEV__) {
   OrderedList.displayName = "OrderedList"
 }
 
-export const UnorderedList = forwardRef<ListProps>(function UnorderedList(
-  props,
-  ref,
-) {
-  return (
-    <List ref={ref} as="ul" styleType="bullet" marginLeft="1em" {...props} />
-  )
-})
+export const UnorderedList: React.FC<ListProps> = forwardRef<ListProps>(
+  function UnorderedList(props, ref) {
+    return (
+      <List ref={ref} as="ul" styleType="bullet" marginLeft="1em" {...props} />
+    )
+  },
+)
 
 if (__DEV__) {
   UnorderedList.displayName = "UnorderedList"
@@ -107,7 +108,7 @@ if (__DEV__) {
  *
  * Used to render an icon beside the list item text
  */
-export const ListIcon = React.forwardRef(function ListIcon(
+export const ListIcon: React.FC<IconProps> = React.forwardRef(function ListIcon(
   props: IconProps,
   ref: React.Ref<any>,
 ) {

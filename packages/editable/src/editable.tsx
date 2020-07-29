@@ -23,7 +23,7 @@ import {
   UseEditableReturn,
 } from "./use-editable"
 
-type EditableContext = Omit<UseEditableReturn, "htmlProps">
+export type EditableContext = Omit<UseEditableReturn, "htmlProps">
 
 const [EditableProvider, useEditableContext] = createContext<EditableContext>({
   name: "EditableContext",
@@ -53,41 +53,40 @@ export type EditableProps = UseEditableProps &
  * The wrapper that provides context and logic for all editable
  * components. It renders a `div`
  */
-export const Editable = forwardRef<EditableProps>(function Editable(
-  props,
-  ref,
-) {
-  const styles = useMultiStyleConfig("Editable", props)
+export const Editable: React.FC<EditableProps> = forwardRef<EditableProps>(
+  function Editable(props, ref) {
+    const styles = useMultiStyleConfig("Editable", props)
 
-  const realProps = omitThemingProps(props)
-  const { htmlProps, ...context } = useEditable(realProps)
+    const realProps = omitThemingProps(props)
+    const { htmlProps, ...context } = useEditable(realProps)
 
-  const { isEditing, onSubmit, onCancel, onEdit } = context
+    const { isEditing, onSubmit, onCancel, onEdit } = context
 
-  const _className = cx("chakra-editable", props.className)
+    const _className = cx("chakra-editable", props.className)
 
-  const children = runIfFn(props.children, {
-    isEditing,
-    onSubmit,
-    onCancel,
-    onEdit,
-  })
+    const children = runIfFn(props.children, {
+      isEditing,
+      onSubmit,
+      onCancel,
+      onEdit,
+    })
 
-  return (
-    <EditableProvider value={context}>
-      <StylesProvider value={styles}>
-        <chakra.div
-          ref={ref}
-          {...htmlProps}
-          __css={styles.container}
-          className={_className}
-        >
-          {children}
-        </chakra.div>
-      </StylesProvider>
-    </EditableProvider>
-  )
-})
+    return (
+      <EditableProvider value={context}>
+        <StylesProvider value={styles}>
+          <chakra.div
+            ref={ref}
+            {...htmlProps}
+            __css={styles.container}
+            className={_className}
+          >
+            {children}
+          </chakra.div>
+        </StylesProvider>
+      </EditableProvider>
+    )
+  },
+)
 
 if (__DEV__) {
   Editable.displayName = "Editable"
@@ -107,28 +106,28 @@ export type EditablePreviewProps = PropsOf<typeof chakra.div>
  *
  * The `span` used to display the final value, in the `preview` mode
  */
-export const EditablePreview = forwardRef<EditablePreviewProps>(
-  function EditablePreview(props, ref) {
-    const { getPreviewProps } = useEditableContext()
-    const styles = useStyles()
+export const EditablePreview: React.FC<EditablePreviewProps> = forwardRef<
+  EditablePreviewProps
+>(function EditablePreview(props, ref) {
+  const { getPreviewProps } = useEditableContext()
+  const styles = useStyles()
 
-    const previewProps = getPreviewProps(props, ref)
-    const _className = cx("chakra-editable__preview", props.className)
+  const previewProps = getPreviewProps(props, ref)
+  const _className = cx("chakra-editable__preview", props.className)
 
-    return (
-      <chakra.span
-        {...previewProps}
-        __css={{
-          cursor: "text",
-          display: "inline-block",
-          ...commonStyles,
-          ...styles.preview,
-        }}
-        className={_className}
-      />
-    )
-  },
-)
+  return (
+    <chakra.span
+      {...previewProps}
+      __css={{
+        cursor: "text",
+        display: "inline-block",
+        ...commonStyles,
+        ...styles.preview,
+      }}
+      className={_className}
+    />
+  )
+})
 
 if (__DEV__) {
   EditablePreview.displayName = "EditablePreview"
@@ -141,27 +140,27 @@ export type EditableInputProps = PropsOf<typeof chakra.input>
  *
  * The input used in the `edit` mode
  */
-export const EditableInput = forwardRef<EditableInputProps>(
-  function EditableInput(props, ref) {
-    const { getInputProps } = useEditableContext()
-    const styles = useStyles()
+export const EditableInput: React.FC<EditableInputProps> = forwardRef<
+  EditableInputProps
+>(function EditableInput(props, ref) {
+  const { getInputProps } = useEditableContext()
+  const styles = useStyles()
 
-    const inputProps = getInputProps(props, ref)
-    const _className = cx("chakra-editable__input", props.className)
+  const inputProps = getInputProps(props, ref)
+  const _className = cx("chakra-editable__input", props.className)
 
-    return (
-      <chakra.input
-        {...inputProps}
-        __css={{
-          outline: 0,
-          ...commonStyles,
-          ...styles.input,
-        }}
-        className={_className}
-      />
-    )
-  },
-)
+  return (
+    <chakra.input
+      {...inputProps}
+      __css={{
+        outline: 0,
+        ...commonStyles,
+        ...styles.input,
+      }}
+      className={_className}
+    />
+  )
+})
 
 if (__DEV__) {
   EditableInput.displayName = "EditableInput"
@@ -191,7 +190,13 @@ export function useEditableState() {
 /**
  * React hook use to create controls for the editable component
  */
-export function useEditableControls() {
+export function useEditableControls(): Pick<
+  EditableContext,
+  | "isEditing"
+  | "getEditButtonProps"
+  | "getCancelButtonProps"
+  | "getSubmitButtonProps"
+> {
   const {
     isEditing,
     getEditButtonProps,

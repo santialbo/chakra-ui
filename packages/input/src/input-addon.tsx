@@ -37,25 +37,24 @@ export type InputAddonProps = PropsOf<typeof StyledAddon> & {
  * Element to append or prepend to an input
  */
 
-export const InputAddon = React.forwardRef(function InputAddonProps(
-  props: InputAddonProps,
-  ref: React.Ref<any>,
-) {
-  const { placement = "left", ...rest } = props
-  const placementStyles = placements[placement] ?? {}
-  const styles = useStyles()
+export const InputAddon: React.FC<InputAddonProps> = React.forwardRef(
+  function InputAddonProps(props: InputAddonProps, ref: React.Ref<any>) {
+    const { placement = "left", ...rest } = props
+    const placementStyles = placements[placement] ?? {}
+    const styles = useStyles()
 
-  return (
-    <StyledAddon
-      ref={ref}
-      {...rest}
-      __css={{
-        ...styles.addon,
-        ...placementStyles,
-      }}
-    />
-  )
-})
+    return (
+      <StyledAddon
+        ref={ref}
+        {...rest}
+        __css={{
+          ...styles.addon,
+          ...placementStyles,
+        }}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   InputAddon.displayName = "InputAddon"
@@ -67,19 +66,18 @@ if (__DEV__) {
  * Element to append to the left of an input
  */
 
-export const InputLeftAddon = React.forwardRef(function InputLeftAddon(
-  props: InputAddonProps,
-  ref: React.Ref<any>,
-) {
-  return (
-    <InputAddon
-      ref={ref}
-      placement="left"
-      {...props}
-      className={cx("chakra-input__left-addon", props.className)}
-    />
-  )
-})
+export const InputLeftAddon: React.FC<InputAddonProps> = React.forwardRef(
+  function InputLeftAddon(props: InputAddonProps, ref: React.Ref<any>) {
+    return (
+      <InputAddon
+        ref={ref}
+        placement="left"
+        {...props}
+        className={cx("chakra-input__left-addon", props.className)}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   InputLeftAddon.displayName = "InputLeftAddon"
@@ -94,19 +92,18 @@ InputLeftAddon.groupId = "InputLeftAddon"
  * Element to append to the right of an input
  */
 
-export const InputRightAddon = React.forwardRef(function InputRightAddon(
-  props: InputAddonProps,
-  ref: React.Ref<any>,
-) {
-  return (
-    <InputAddon
-      ref={ref}
-      placement="right"
-      {...props}
-      className={cx("chakra-input__right-addon", props.className)}
-    />
-  )
-})
+export const InputRightAddon: React.FC<InputAddonProps> = React.forwardRef(
+  function InputRightAddon(props: InputAddonProps, ref: React.Ref<any>) {
+    return (
+      <InputAddon
+        ref={ref}
+        placement="right"
+        {...props}
+        className={cx("chakra-input__right-addon", props.className)}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   InputRightAddon.displayName = "InputRightAddon"

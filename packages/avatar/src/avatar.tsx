@@ -74,30 +74,29 @@ export type AvatarBadgeProps = PropsOf<typeof chakra.div>
  * AvatarBadge used to show extra badge to the top-right
  * or bottom-right corner of an avatar.
  */
-export const AvatarBadge = forwardRef(function AvatarBadge(
-  props: AvatarBadgeProps,
-  ref: Ref<any>,
-) {
-  const styles = useStyles()
-  const badgeStyles = {
-    position: "absolute",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    right: "0",
-    bottom: "0",
-    ...styles.badge,
-  }
+export const AvatarBadge: React.FC<AvatarBadgeProps> = forwardRef(
+  function AvatarBadge(props: AvatarBadgeProps, ref: Ref<any>) {
+    const styles = useStyles()
+    const badgeStyles = {
+      position: "absolute",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      right: "0",
+      bottom: "0",
+      ...styles.badge,
+    }
 
-  return (
-    <chakra.div
-      ref={ref}
-      {...props}
-      className={cx("chakra-avatar__badge", props.className)}
-      __css={badgeStyles}
-    />
-  )
-})
+    return (
+      <chakra.div
+        ref={ref}
+        {...props}
+        className={cx("chakra-avatar__badge", props.className)}
+        __css={badgeStyles}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   AvatarBadge.displayName = "AvatarBadge"
@@ -170,7 +169,7 @@ export type AvatarProps = PropsOf<typeof chakra.span> &
  * Avatar component that renders an user avatar with
  * support for fallback avatar and name-only avatars
  */
-export const Avatar = forwardRef(function Avatar(
+export const Avatar: React.FC<AvatarProps> = forwardRef(function Avatar(
   props: AvatarProps,
   ref: Ref<any>,
 ) {

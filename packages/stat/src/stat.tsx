@@ -14,20 +14,19 @@ import * as React from "react"
 
 export type StatLabelProps = PropsOf<typeof chakra.dt>
 
-export const StatLabel = React.forwardRef(function StatLabel(
-  props: StatLabelProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyles()
-  return (
-    <chakra.dt
-      ref={ref}
-      {...props}
-      className={cx("chakra-stat__label", props.className)}
-      __css={styles.label}
-    />
-  )
-})
+export const StatLabel: React.FC<StatLabelProps> = React.forwardRef(
+  function StatLabel(props: StatLabelProps, ref: React.Ref<any>) {
+    const styles = useStyles()
+    return (
+      <chakra.dt
+        ref={ref}
+        {...props}
+        className={cx("chakra-stat__label", props.className)}
+        __css={styles.label}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   StatLabel.displayName = "StatLabel"
@@ -35,21 +34,20 @@ if (__DEV__) {
 
 export type StatHelpTextProps = PropsOf<typeof chakra.p>
 
-export const StatHelpText = React.forwardRef(function StatHelpText(
-  props: StatHelpTextProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyles()
+export const StatHelpText: React.FC<StatHelpTextProps> = React.forwardRef(
+  function StatHelpText(props: StatHelpTextProps, ref: React.Ref<any>) {
+    const styles = useStyles()
 
-  return (
-    <chakra.p
-      ref={ref}
-      {...props}
-      className={cx("chakra-stat__help-text", props.className)}
-      __css={styles.helpText}
-    />
-  )
-})
+    return (
+      <chakra.p
+        ref={ref}
+        {...props}
+        className={cx("chakra-stat__help-text", props.className)}
+        __css={styles.helpText}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   StatHelpText.displayName = "StatHelpText"
@@ -57,20 +55,19 @@ if (__DEV__) {
 
 export type StatNumberProps = PropsOf<typeof chakra.dd>
 
-export const StatNumber = React.forwardRef(function StatNumber(
-  props: StatNumberProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyles()
-  return (
-    <chakra.dd
-      ref={ref}
-      {...props}
-      className={cx("chakra-stat__number", props.className)}
-      __css={styles.number}
-    />
-  )
-})
+export const StatNumber: React.FC<StatNumberProps> = React.forwardRef(
+  function StatNumber(props: StatNumberProps, ref: React.Ref<any>) {
+    const styles = useStyles()
+    return (
+      <chakra.dd
+        ref={ref}
+        {...props}
+        className={cx("chakra-stat__number", props.className)}
+        __css={styles.number}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   StatNumber.displayName = "StatNumber"
@@ -130,7 +127,7 @@ if (__DEV__) {
 
 export type StatProps = PropsOf<typeof chakra.div> & ThemingProps
 
-export const Stat = React.forwardRef(function Stat(
+export const Stat: React.FC<StatProps> = React.forwardRef(function Stat(
   props: StatProps,
   ref: React.Ref<any>,
 ) {
@@ -150,25 +147,24 @@ if (__DEV__) {
   Stat.displayName = "Stat"
 }
 
-export const StatGroup = React.forwardRef(function StatGroup(
-  props: PropsOf<typeof chakra.div>,
-  ref: React.Ref<any>,
-) {
-  return (
-    <chakra.div
-      {...props}
-      ref={ref}
-      role="group"
-      className={cx("chakra-stat__group", props.className)}
-      __css={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-around",
-        alignItems: "flex-start",
-      }}
-    />
-  )
-})
+export const StatGroup: React.FC<PropsOf<typeof chakra.div>> = React.forwardRef(
+  function StatGroup(props: PropsOf<typeof chakra.div>, ref: React.Ref<any>) {
+    return (
+      <chakra.div
+        {...props}
+        ref={ref}
+        role="group"
+        className={cx("chakra-stat__group", props.className)}
+        __css={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          alignItems: "flex-start",
+        }}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   StatGroup.displayName = "StatGroup"

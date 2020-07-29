@@ -19,7 +19,10 @@ export type TagProps = PropsOf<typeof chakra.span> & ThemingProps
  * To style the tag globally, change the styles in `theme.components.Tag`
  * @see Docs https://chakra-ui.com/components/tag
  */
-export const Tag = forwardRef<TagProps>(function Tag(props, ref) {
+export const Tag: React.FC<TagProps> = forwardRef<TagProps>(function Tag(
+  props,
+  ref,
+) {
   const styles = useMultiStyleConfig("Tag", props)
   const _props = omitThemingProps(props)
 

@@ -8,7 +8,7 @@ import {
   ariaAttr,
 } from "@chakra-ui/utils"
 import { useState, useCallback, ChangeEvent, useRef, Ref } from "react"
-import { PropsOf } from "@chakra-ui/system"
+import { PropsOf, chakra } from "@chakra-ui/system"
 
 export interface UseEditableProps {
   /**
@@ -187,7 +187,10 @@ export function useEditable(props: UseEditableProps = {}) {
     onEdit,
     onCancel,
     onSubmit,
-    getPreviewProps: (props: Dict = {}, ref: Ref<any> = null) => ({
+    getPreviewProps: (
+      props: Dict = {},
+      ref: Ref<any> = null,
+    ): PropsOf<typeof chakra.div> => ({
       ...props,
       ref: mergeRefs(ref, previewRef),
       children: isValueEmpty ? placeholder : value,
@@ -196,7 +199,10 @@ export function useEditable(props: UseEditableProps = {}) {
       tabIndex: getTabIndex(),
       onFocus: callAllHandlers(props.onFocus, onEdit),
     }),
-    getInputProps: (props: Dict = {}, ref: Ref<any> = null) => ({
+    getInputProps: (
+      props: Dict = {},
+      ref: Ref<any> = null,
+    ): PropsOf<typeof chakra.input> => ({
       ...props,
       hidden: !isEditing,
       placeholder,
@@ -211,7 +217,7 @@ export function useEditable(props: UseEditableProps = {}) {
     getEditButtonProps: (
       props: Dict = {},
       ref: Ref<any> = null,
-    ): PropsOf<"button"> => ({
+    ): PropsOf<typeof chakra.button> => ({
       "aria-label": "Edit",
       ...props,
       type: "button",
@@ -221,7 +227,7 @@ export function useEditable(props: UseEditableProps = {}) {
     getSubmitButtonProps: (
       props: Dict = {},
       ref: Ref<any> = null,
-    ): PropsOf<"button"> => ({
+    ): PropsOf<typeof chakra.button> => ({
       "aria-label": "Submit",
       ...props,
       ref,
@@ -231,7 +237,7 @@ export function useEditable(props: UseEditableProps = {}) {
     getCancelButtonProps: (
       props: Dict = {},
       ref: Ref<any> = null,
-    ): PropsOf<"button"> => ({
+    ): PropsOf<typeof chakra.button> => ({
       "aria-label": "Cancel",
       ...props,
       ref,

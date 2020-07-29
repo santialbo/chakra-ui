@@ -60,83 +60,85 @@ export type ButtonProps = PropsOf<typeof chakra.button> &
   ButtonOptions &
   ThemingProps
 
-export const Button = forwardRef<ButtonProps>(function Button(props, ref) {
-  const group = useButtonGroup()
-  const styles = useStyleConfig("Button", { ...group, ...props })
+export const Button: React.FC<ButtonProps> = forwardRef<ButtonProps>(
+  function Button(props, ref) {
+    const group = useButtonGroup()
+    const styles = useStyleConfig("Button", { ...group, ...props })
 
-  const {
-    isDisabled = group?.isDisabled,
-    isLoading,
-    isActive,
-    isFullWidth,
-    children,
-    leftIcon,
-    rightIcon,
-    loadingText,
-    iconSpacing = "0.5rem",
-    type = "button",
-    spinner,
-    className,
-    as,
-    ...rest
-  } = omitThemingProps(props)
+    const {
+      isDisabled = group?.isDisabled,
+      isLoading,
+      isActive,
+      isFullWidth,
+      children,
+      leftIcon,
+      rightIcon,
+      loadingText,
+      iconSpacing = "0.5rem",
+      type = "button",
+      spinner,
+      className,
+      as,
+      ...rest
+    } = omitThemingProps(props)
 
-  /**
-   * When button is used within ButtonGroup (i.e flushed with sibling buttons),
-   * it's important to add a `zIndex` when it's focused to it doesn't look funky.
-   *
-   * So let's read the component styles and then add `zIndex` to it.
-   */
-  const _focus = merge({}, styles?.["_focus"] ?? {}, { zIndex: 1 })
+    /**
+     * When button is used within ButtonGroup (i.e flushed with sibling buttons),
+     * it's important to add a `zIndex` when it's focused to it doesn't look funky.
+     *
+     * So let's read the component styles and then add `zIndex` to it.
+     */
+    const _focus = merge({}, styles?.["_focus"] ?? {}, { zIndex: 1 })
 
-  const buttonStyles = {
-    display: "inline-flex",
-    appearance: "none",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "all 250ms",
-    userSelect: "none",
-    position: "relative",
-    whiteSpace: "nowrap",
-    verticalAlign: "middle",
-    outline: "none",
-    width: isFullWidth ? "100%" : "auto",
-    ...styles,
-    ...(!!group && { _focus }),
-  }
+    const buttonStyles = {
+      display: "inline-flex",
+      appearance: "none",
+      alignItems: "center",
+      justifyContent: "center",
+      transition: "all 250ms",
+      userSelect: "none",
+      position: "relative",
+      whiteSpace: "nowrap",
+      verticalAlign: "middle",
+      outline: "none",
+      width: isFullWidth ? "100%" : "auto",
+      ...styles,
+      ...(!!group && { _focus }),
+    }
 
-  return (
-    <chakra.button
-      disabled={isDisabled || isLoading}
-      ref={ref}
-      as={as}
-      type={as ? undefined : type}
-      data-active={dataAttr(isActive)}
-      data-loading={dataAttr(isLoading)}
-      __css={buttonStyles}
-      className={cx("chakra-button", className)}
-      {...rest}
-    >
-      {leftIcon && !isLoading && (
-        <ButtonIcon mr={iconSpacing} children={leftIcon} />
-      )}
-      {isLoading && (
-        <ButtonSpinner
-          __css={{ fontSize: "1em", lineHeight: "normal" }}
-          spacing={iconSpacing}
-          label={loadingText}
-          children={spinner}
-        />
-      )}
-      {isLoading
-        ? loadingText || <chakra.span opacity={0} children={children} />
-        : children}
-      {rightIcon && !isLoading && (
-        <ButtonIcon ml={iconSpacing} children={rightIcon} />
-      )}
-    </chakra.button>
-  )
-})
+    return (
+      <chakra.button
+        disabled={isDisabled || isLoading}
+        ref={ref}
+        as={as}
+        type={as ? undefined : type}
+        data-active={dataAttr(isActive)}
+        data-loading={dataAttr(isLoading)}
+        __css={buttonStyles}
+        className={cx("chakra-button", className)}
+        {...rest}
+      >
+        {leftIcon && !isLoading && (
+          <ButtonIcon mr={iconSpacing} children={leftIcon} />
+        )}
+        {isLoading && (
+          <ButtonSpinner
+            __css={{ fontSize: "1em", lineHeight: "normal" }}
+            spacing={iconSpacing}
+            label={loadingText}
+            children={spinner}
+          />
+        )}
+        {isLoading
+          ? loadingText || <chakra.span opacity={0} children={children} />
+          : children}
+        {rightIcon && !isLoading && (
+          <ButtonIcon ml={iconSpacing} children={rightIcon} />
+        )}
+      </chakra.button>
+    )
+  },
+)
 
 if (__DEV__) {
   Button.displayName = "Button"

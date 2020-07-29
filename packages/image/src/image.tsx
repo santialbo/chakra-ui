@@ -52,7 +52,7 @@ export type ImageProps = UseImageProps &
  *
  * @see Docs https://chakra-ui.com/components/image
  */
-export const Image = React.forwardRef(function Image(
+export const Image: React.FC<ImageProps> = React.forwardRef(function Image(
   props: ImageProps,
   ref: React.Ref<any>,
 ) {

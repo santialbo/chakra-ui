@@ -25,55 +25,54 @@ export type ContainerProps = PropsOf<typeof chakra.div> & {
  *
  * It also sets a default max-width of `60ch` (60 characters).
  */
-export const Container = React.forwardRef(function Container(
-  props: ContainerProps,
-  ref: React.Ref<any>,
-) {
-  const {
-    maxWidth,
-    width,
-    minWidth,
-    w,
-    minW,
-    maxW,
-    className,
-    centerContent,
-    ...rest
-  } = props
+export const Container: React.FC<ContainerProps> = React.forwardRef(
+  function Container(props: ContainerProps, ref: React.Ref<any>) {
+    const {
+      maxWidth,
+      width,
+      minWidth,
+      w,
+      minW,
+      maxW,
+      className,
+      centerContent,
+      ...rest
+    } = props
 
-  const theme = useTheme()
+    const theme = useTheme()
 
-  const widthProps = transform(theme, {
-    maxW,
-    maxWidth,
-    width,
-    w,
-    minWidth,
-    minW,
-  })
+    const widthProps = transform(theme, {
+      maxW,
+      maxWidth,
+      width,
+      w,
+      minWidth,
+      minW,
+    })
 
-  const styles: SystemStyleObject = {
-    w: "100%",
-    mx: "auto",
-    maxW: "60ch",
-    px: "1rem",
-    ...(centerContent && {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }),
-    ...widthProps,
-  }
+    const styles: SystemStyleObject = {
+      w: "100%",
+      mx: "auto",
+      maxW: "60ch",
+      px: "1rem",
+      ...(centerContent && {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }),
+      ...widthProps,
+    }
 
-  return (
-    <chakra.div
-      ref={ref}
-      className={cx("chakra-container", className)}
-      {...rest}
-      __css={styles}
-    />
-  )
-})
+    return (
+      <chakra.div
+        ref={ref}
+        className={cx("chakra-container", className)}
+        {...rest}
+        __css={styles}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   Container.displayName = "Container"

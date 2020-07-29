@@ -41,28 +41,27 @@ export type TextareaProps = Omit<PropsOf<typeof chakra.textarea>, Omitted> &
  * Textarea is used to enter an amount of text that's longer than a single line
  * @see Docs https://chakra-ui.com/components/textarea
  */
-export const Textarea = forwardRef<TextareaProps>(function Textarea(
-  props,
-  ref,
-) {
-  const styles = useStyleConfig("Textarea", props)
-  const { className, rows, ...otherProps } = omitThemingProps(props)
+export const Textarea: React.FC<TextareaProps> = forwardRef<TextareaProps>(
+  function Textarea(props, ref) {
+    const styles = useStyleConfig("Textarea", props)
+    const { className, rows, ...otherProps } = omitThemingProps(props)
 
-  const textareaProps = useFormControl<HTMLTextAreaElement>(otherProps)
+    const textareaProps = useFormControl<HTMLTextAreaElement>(otherProps)
 
-  const omitted = ["height", "minHeight"] as (keyof SystemStyleObject)[]
-  const textareaStyles = rows ? omit(styles, omitted) : styles
+    const omitted = ["height", "minHeight"] as (keyof SystemStyleObject)[]
+    const textareaStyles = rows ? omit(styles, omitted) : styles
 
-  return (
-    <chakra.textarea
-      ref={ref}
-      rows={rows}
-      {...textareaProps}
-      className={cx("chakra-textarea", className)}
-      __css={textareaStyles}
-    />
-  )
-})
+    return (
+      <chakra.textarea
+        ref={ref}
+        rows={rows}
+        {...textareaProps}
+        className={cx("chakra-textarea", className)}
+        __css={textareaStyles}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   Textarea.displayName = "Textarea"

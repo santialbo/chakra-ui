@@ -15,7 +15,7 @@ export type TextProps = PropsOf<typeof chakra.p> & ThemingProps
  *
  * @see Docs https://chakra-ui.com/components/text
  */
-export const Text = React.forwardRef(function Text(
+export const Text: React.FC<TextProps> = React.forwardRef(function Text(
   props: TextProps,
   ref: React.Ref<any>,
 ) {

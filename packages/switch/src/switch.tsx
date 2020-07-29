@@ -15,7 +15,7 @@ export type SwitchProps = Omit<UseCheckboxProps, "isIndeterminate"> &
   Omit<PropsOf<typeof chakra.label>, Omitted> &
   ThemingProps
 
-export const Switch = React.forwardRef(function Switch(
+export const Switch: React.FC<SwitchProps> = React.forwardRef(function Switch(
   props: SwitchProps,
   ref: React.Ref<any>,
 ) {

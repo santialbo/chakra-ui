@@ -4,7 +4,7 @@ import { chakra } from "@chakra-ui/system"
 import { ClickableProps } from "../stories/use-clickable.stories"
 import { useClickable } from "../src"
 
-const Clickable = React.forwardRef(
+const Clickable: React.FC<ClickableProps> = React.forwardRef(
   (props: ClickableProps, ref: React.Ref<any>) => {
     const clickable = useClickable({ ...props, ref })
     return <chakra.button display="inline-flex" {...clickable} />

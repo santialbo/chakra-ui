@@ -87,7 +87,7 @@ export const StackItem = (props: PropsOf<typeof chakra.div>) => (
  * @see Docs https://chakra-ui.com/components/stack
  *
  */
-export const Stack = React.forwardRef(function Stack(
+export const Stack: React.FC<StackProps> = React.forwardRef(function Stack(
   props: StackProps,
   ref: React.Ref<any>,
 ) {
@@ -207,7 +207,7 @@ if (__DEV__) {
 /**
  * A view that arranges its children in a horizontal line.
  */
-export const HStack = React.forwardRef(function HStack(
+export const HStack: React.FC<StackProps> = React.forwardRef(function HStack(
   props: StackProps,
   ref: React.Ref<any>,
 ) {
@@ -221,7 +221,7 @@ if (__DEV__) {
 /**
  * A view that arranges its children in a vertical line.
  */
-export const VStack = React.forwardRef(function VStack(
+export const VStack: React.FC<StackProps> = React.forwardRef(function VStack(
   props: StackProps,
   ref: React.Ref<any>,
 ) {

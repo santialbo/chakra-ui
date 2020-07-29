@@ -13,10 +13,9 @@ export type IconButtonProps = BaseButtonProps & {
   "aria-label": string
 }
 
-export const IconButton = forwardRef<IconButtonProps>(function IconButton(
-  props,
-  ref,
-) {
+export const IconButton: React.FC<IconButtonProps> = forwardRef<
+  IconButtonProps
+>(function IconButton(props, ref) {
   const { icon, children, isRound, "aria-label": ariaLabel, ...rest } = props
 
   /**

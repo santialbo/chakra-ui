@@ -16,7 +16,7 @@ export type BadgeProps = PropsOf<typeof chakra.span> & ThemingProps
  *
  * @see Docs https://chakra-ui.com/components/badge
  */
-export const Badge = React.forwardRef(function Badge(
+export const Badge: React.FC<BadgeProps> = React.forwardRef(function Badge(
   props: BadgeProps,
   ref: React.Ref<any>,
 ) {

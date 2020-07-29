@@ -53,44 +53,43 @@ export type CollapseProps = AnimateHeightProps &
   CollapseOptions &
   PropsOf<typeof chakra.div>
 
-export const Collapse = React.forwardRef(function Collapse(
-  props: CollapseProps,
-  ref: React.Ref<any>,
-) {
-  const {
-    isOpen,
-    animateOpacity = true,
-    onAnimationStart,
-    onAnimationEnd,
-    duration,
-    easing = "ease",
-    startingHeight = 0,
-    endingHeight = "auto",
-    ...rest
-  } = props
+export const Collapse: React.FC<CollapseProps> = React.forwardRef(
+  function Collapse(props: CollapseProps, ref: React.Ref<any>) {
+    const {
+      isOpen,
+      animateOpacity = true,
+      onAnimationStart,
+      onAnimationEnd,
+      duration,
+      easing = "ease",
+      startingHeight = 0,
+      endingHeight = "auto",
+      ...rest
+    } = props
 
-  return (
-    <AnimateHeight
-      duration={duration}
-      easing={easing}
-      animateOpacity={animateOpacity}
-      height={isOpen ? endingHeight : startingHeight}
-      applyInlineTransitions={false}
-      onAnimationStart={onAnimationStart}
-      onAnimationEnd={onAnimationEnd}
-      sx={{
-        transition:
-          "height .2s ease,opacity .2s ease-in-out,transform .2s ease-in-out",
-        "&.rah-animating--to-height-zero": {
-          opacity: 0,
-          transform: "translateY(-0.625rem)",
-        },
-      }}
-    >
-      <chakra.div ref={ref} {...rest} />
-    </AnimateHeight>
-  )
-})
+    return (
+      <AnimateHeight
+        duration={duration}
+        easing={easing}
+        animateOpacity={animateOpacity}
+        height={isOpen ? endingHeight : startingHeight}
+        applyInlineTransitions={false}
+        onAnimationStart={onAnimationStart}
+        onAnimationEnd={onAnimationEnd}
+        sx={{
+          transition:
+            "height .2s ease,opacity .2s ease-in-out,transform .2s ease-in-out",
+          "&.rah-animating--to-height-zero": {
+            opacity: 0,
+            transform: "translateY(-0.625rem)",
+          },
+        }}
+      >
+        <chakra.div ref={ref} {...rest} />
+      </AnimateHeight>
+    )
+  },
+)
 
 if (__DEV__) {
   Collapse.displayName = "Collapse"

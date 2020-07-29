@@ -43,21 +43,23 @@ export type InputProps = Omit<PropsOf<typeof chakra.input>, Omitted> &
  *
  * Element that allows users enter single valued data.
  */
-export const Input = forwardRef<InputProps>(function Input(props, ref) {
-  const styles = useMultiStyleConfig("Input", props)
-  const realProps = omitThemingProps(props)
-  const input = useFormControl<HTMLInputElement>(realProps)
-  const _className = cx("chakra-input", props.className)
+export const Input: React.FC<InputProps> = forwardRef<InputProps>(
+  function Input(props, ref) {
+    const styles = useMultiStyleConfig("Input", props)
+    const realProps = omitThemingProps(props)
+    const input = useFormControl<HTMLInputElement>(realProps)
+    const _className = cx("chakra-input", props.className)
 
-  return (
-    <chakra.input
-      {...input}
-      __css={styles.field}
-      ref={ref}
-      className={_className}
-    />
-  )
-})
+    return (
+      <chakra.input
+        {...input}
+        __css={styles.field}
+        ref={ref}
+        className={_className}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   Input.displayName = "Input"

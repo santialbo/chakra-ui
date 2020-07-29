@@ -33,17 +33,16 @@ const baseStyle: SystemStyleObject = {
 /**
  * Renders a link that remains hidden until focused to skip to the main content.
  */
-export const SkipNavLink = React.forwardRef(function SkipNavLink(
-  props: SkipNavLinkProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyleConfig("SkipLink", props)
-  const { id = fallbackId, ...rest } = omitThemingProps(props)
+export const SkipNavLink: React.FC<SkipNavLinkProps> = React.forwardRef(
+  function SkipNavLink(props: SkipNavLinkProps, ref: React.Ref<any>) {
+    const styles = useStyleConfig("SkipLink", props)
+    const { id = fallbackId, ...rest } = omitThemingProps(props)
 
-  const linkStyles = merge({}, baseStyle, styles)
+    const linkStyles = merge({}, baseStyle, styles)
 
-  return <chakra.a {...rest} ref={ref} href={`#${id}`} __css={linkStyles} />
-})
+    return <chakra.a {...rest} ref={ref} href={`#${id}`} __css={linkStyles} />
+  },
+)
 
 if (__DEV__) {
   SkipNavLink.displayName = "SkipNavLink"
@@ -54,15 +53,14 @@ export type SkipNavContentProps = PropsOf<"div">
 /**
  * Renders a div as the target for the link.
  */
-export const SkipNavContent = React.forwardRef(function SkipNavContent(
-  props: SkipNavContentProps,
-  ref: React.Ref<any>,
-) {
-  const { id = fallbackId, ...rest } = props
-  return (
-    <div ref={ref} id={id} tabIndex={-1} style={{ outline: 0 }} {...rest} />
-  )
-})
+export const SkipNavContent: React.FC<SkipNavContentProps> = React.forwardRef(
+  function SkipNavContent(props: SkipNavContentProps, ref: React.Ref<any>) {
+    const { id = fallbackId, ...rest } = props
+    return (
+      <div ref={ref} id={id} tabIndex={-1} style={{ outline: 0 }} {...rest} />
+    )
+  },
+)
 
 if (__DEV__) {
   SkipNavContent.displayName = "SkipNavContent"

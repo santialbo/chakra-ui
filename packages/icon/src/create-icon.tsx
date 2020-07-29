@@ -22,7 +22,7 @@ interface CreateIconOptions {
   displayName?: string
 }
 
-export function createIcon(options: CreateIconOptions) {
+export const createIcon = (options: CreateIconOptions): React.FC<IconProps> => {
   const {
     viewBox = "0 0 24 24",
     d: pathDefinition,
@@ -30,13 +30,15 @@ export function createIcon(options: CreateIconOptions) {
     displayName,
   } = options
 
-  const Comp = React.forwardRef((props: IconProps, ref: React.Ref<any>) => {
-    return (
-      <Icon ref={ref} viewBox={viewBox} {...props}>
-        {path ?? <path fill="currentColor" d={pathDefinition} />}
-      </Icon>
-    )
-  })
+  const Comp: React.FC<IconProps> = React.forwardRef(
+    (props: IconProps, ref: React.Ref<any>) => {
+      return (
+        <Icon ref={ref} viewBox={viewBox} {...props}>
+          {path ?? <path fill="currentColor" d={pathDefinition} />}
+        </Icon>
+      )
+    },
+  )
 
   if (__DEV__) {
     Comp.displayName = displayName

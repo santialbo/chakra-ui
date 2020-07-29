@@ -34,7 +34,7 @@ export type RadioProps = UseRadioProps &
  * several options.
  * @see Docs https://chakra-ui.com/components/radio
  */
-export const Radio = React.forwardRef(function Radio(
+export const Radio: React.FC<RadioProps> = React.forwardRef(function Radio(
   props: RadioProps,
   ref: React.Ref<any>,
 ) {

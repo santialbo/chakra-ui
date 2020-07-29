@@ -33,7 +33,7 @@ export type WrapProps = DivProps & {
  *
  * @see Docs https://chakra-ui.com/components/wrap
  */
-export const Wrap = React.forwardRef(function Wrap(
+export const Wrap: React.FC<WrapProps> = React.forwardRef(function Wrap(
   props: WrapProps,
   ref: React.Ref<any>,
 ) {

@@ -57,18 +57,17 @@ if (__DEV__) {
 
 export type PinInputFieldProps = PropsOf<typeof chakra.input>
 
-export const PinInputField = React.forwardRef(function PinInputField(
-  props: PinInputFieldProps,
-  ref: React.Ref<any>,
-) {
-  const inputProps = usePinInputField({ ref, ...props })
-  return (
-    <chakra.input
-      {...inputProps}
-      className={cx("chakra-pin-input", props.className)}
-    />
-  )
-})
+export const PinInputField: React.FC<PinInputFieldProps> = React.forwardRef(
+  function PinInputField(props: PinInputFieldProps, ref: React.Ref<any>) {
+    const inputProps = usePinInputField({ ref, ...props })
+    return (
+      <chakra.input
+        {...inputProps}
+        className={cx("chakra-pin-input", props.className)}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   PinInputField.displayName = "PinInputField"

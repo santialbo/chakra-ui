@@ -32,37 +32,36 @@ export type CloseButtonProps = PropsOf<typeof chakra.button> &
  * It is used to handle the close functionality in feedback and overlay components
  * like Alerts, Toasts, Drawers and Modals.
  */
-export const CloseButton = React.forwardRef(function CloseButton(
-  props: CloseButtonProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyleConfig("CloseButton", props)
-  const { children, isDisabled, ...rest } = omitThemingProps(props)
+export const CloseButton: React.FC<CloseButtonProps> = React.forwardRef(
+  function CloseButton(props: CloseButtonProps, ref: React.Ref<any>) {
+    const styles = useStyleConfig("CloseButton", props)
+    const { children, isDisabled, ...rest } = omitThemingProps(props)
 
-  const baseStyle = {
-    outline: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-  }
+    const baseStyle = {
+      outline: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0,
+    }
 
-  return (
-    <chakra.button
-      type="button"
-      aria-label="Close"
-      ref={ref}
-      disabled={isDisabled}
-      __css={{
-        ...baseStyle,
-        ...styles,
-      }}
-      {...rest}
-    >
-      {children || <CloseIcon width="1em" height="1em" />}
-    </chakra.button>
-  )
-})
+    return (
+      <chakra.button
+        type="button"
+        aria-label="Close"
+        ref={ref}
+        disabled={isDisabled}
+        __css={{
+          ...baseStyle,
+          ...styles,
+        }}
+        {...rest}
+      >
+        {children || <CloseIcon width="1em" height="1em" />}
+      </chakra.button>
+    )
+  },
+)
 
 if (__DEV__) {
   CloseButton.displayName = "CloseButton"

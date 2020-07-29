@@ -62,39 +62,43 @@ const fade = keyframes({
   to: { opacity: 1 },
 })
 
-export const Skeleton = React.forwardRef(function Skeleton(
-  props: SkeletonProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyleConfig("Skeleton", props)
+export const Skeleton: React.FC<SkeletonProps> = React.forwardRef(
+  function Skeleton(props: SkeletonProps, ref: React.Ref<any>) {
+    const styles = useStyleConfig("Skeleton", props)
 
-  const {
-    startColor,
-    endColor,
-    isLoaded,
-    fadeDuration,
-    speed,
-    className,
-    ...rest
-  } = omitThemingProps(props)
+    const {
+      startColor,
+      endColor,
+      isLoaded,
+      fadeDuration,
+      speed,
+      className,
+      ...rest
+    } = omitThemingProps(props)
 
-  const _className = cx("chakra-skeleton", className)
+    const _className = cx("chakra-skeleton", className)
 
-  if (isLoaded) {
+    if (isLoaded) {
+      return (
+        <chakra.div
+          ref={ref}
+          className={_className}
+          __css={{ animation: `${fade} ${fadeDuration}s` }}
+          {...rest}
+        />
+      )
+    }
+
     return (
-      <chakra.div
+      <StyledSkeleton
         ref={ref}
         className={_className}
-        __css={{ animation: `${fade} ${fadeDuration}s` }}
         {...rest}
+        __css={styles}
       />
     )
-  }
-
-  return (
-    <StyledSkeleton ref={ref} className={_className} {...rest} __css={styles} />
-  )
-})
+  },
+)
 
 Skeleton.defaultProps = {
   fadeDuration: 0.4,

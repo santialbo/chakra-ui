@@ -48,89 +48,88 @@ export type TooltipProps = PropsOf<typeof chakra.div> &
  * @see Docs     https://chakra-ui.com/components/tooltip
  * @see WAI-ARIA https://www.w3.org/TR/wai-aria-practices/#tooltip
  */
-export const Tooltip = React.forwardRef(function Tooltip(
-  props: TooltipProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyleConfig("Tooltip", props)
-  const realProps = omitThemingProps(props)
+export const Tooltip: React.FC<TooltipProps> = React.forwardRef(
+  function Tooltip(props: TooltipProps, ref: React.Ref<any>) {
+    const styles = useStyleConfig("Tooltip", props)
+    const realProps = omitThemingProps(props)
 
-  const {
-    children,
-    label,
-    shouldWrapChildren,
-    "aria-label": ariaLabel,
-    hasArrow,
-    ...otherProps
-  } = realProps
+    const {
+      children,
+      label,
+      shouldWrapChildren,
+      "aria-label": ariaLabel,
+      hasArrow,
+      ...otherProps
+    } = realProps
 
-  const {
-    isOpen,
-    getTriggerProps,
-    getTooltipProps,
-    getArrowProps,
-  } = useTooltip(realProps)
+    const {
+      isOpen,
+      getTriggerProps,
+      getTooltipProps,
+      getArrowProps,
+    } = useTooltip(realProps)
 
-  const shouldWrap = isString(children) || shouldWrapChildren
+    const shouldWrap = isString(children) || shouldWrapChildren
 
-  let trigger: React.ReactElement
+    let trigger: React.ReactElement
 
-  if (shouldWrap) {
-    trigger = (
-      <chakra.span tabIndex={0} {...getTriggerProps()}>
-        {children}
-      </chakra.span>
-    )
-  } else {
+    if (shouldWrap) {
+      trigger = (
+        <chakra.span tabIndex={0} {...getTriggerProps()}>
+          {children}
+        </chakra.span>
+      )
+    } else {
+      /**
+       * Ensure tooltip has only one child node
+       */
+      const child = React.Children.only(children) as React.ReactElement
+      trigger = React.cloneElement(child, getTriggerProps(child.props))
+    }
+
+    const hasAriaLabel = !!ariaLabel
+
+    const _tooltipProps = getTooltipProps(otherProps, ref)
+    const arrowProps = getArrowProps()
+
+    const tooltipProps = hasAriaLabel
+      ? omit(_tooltipProps, ["role", "id"])
+      : _tooltipProps
+
+    const hiddenProps = pick(_tooltipProps, ["role", "id"])
+
     /**
-     * Ensure tooltip has only one child node
+     * If the `label` is empty, there's no
+     * point showing the tooltip. Let's simply return back the children
      */
-    const child = React.Children.only(children) as React.ReactElement
-    trigger = React.cloneElement(child, getTriggerProps(child.props))
-  }
+    if (!label) {
+      return <>{children}</>
+    }
 
-  const hasAriaLabel = !!ariaLabel
-
-  const _tooltipProps = getTooltipProps(otherProps, ref)
-  const arrowProps = getArrowProps()
-
-  const tooltipProps = hasAriaLabel
-    ? omit(_tooltipProps, ["role", "id"])
-    : _tooltipProps
-
-  const hiddenProps = pick(_tooltipProps, ["role", "id"])
-
-  /**
-   * If the `label` is empty, there's no
-   * point showing the tooltip. Let's simply return back the children
-   */
-  if (!label) {
-    return <>{children}</>
-  }
-
-  return (
-    <>
-      {trigger}
-      {isOpen && (
-        <Portal>
-          <chakra.div {...tooltipProps} __css={styles}>
-            {label}
-            {hasAriaLabel && (
-              <VisuallyHidden {...hiddenProps}>{ariaLabel}</VisuallyHidden>
-            )}
-            {hasArrow && (
-              <chakra.div
-                className="chakra-tooltip__arrow"
-                {...arrowProps}
-                __css={{ bg: "inherit" }}
-              />
-            )}
-          </chakra.div>
-        </Portal>
-      )}
-    </>
-  )
-})
+    return (
+      <>
+        {trigger}
+        {isOpen && (
+          <Portal>
+            <chakra.div {...tooltipProps} __css={styles}>
+              {label}
+              {hasAriaLabel && (
+                <VisuallyHidden {...hiddenProps}>{ariaLabel}</VisuallyHidden>
+              )}
+              {hasArrow && (
+                <chakra.div
+                  className="chakra-tooltip__arrow"
+                  {...arrowProps}
+                  __css={{ bg: "inherit" }}
+                />
+              )}
+            </chakra.div>
+          </Portal>
+        )}
+      </>
+    )
+  },
+)
 
 if (__DEV__) {
   Tooltip.displayName = "Tooltip"

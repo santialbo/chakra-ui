@@ -23,7 +23,7 @@ const fallbackIcon = {
 
 export type IconProps = PropsOf<typeof chakra.svg>
 
-export const Icon = React.forwardRef(function Icon(
+export const Icon: React.FC<IconProps> = React.forwardRef(function Icon(
   props: IconProps,
   ref: React.Ref<any>,
 ) {

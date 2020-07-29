@@ -9,40 +9,39 @@ import { __DEV__, cx } from "@chakra-ui/utils"
  *
  * @see Docs https://chakra-ui.com/components/divider
  */
-export const Divider = React.forwardRef(function Divider(
-  props: DividerProps,
-  ref: React.Ref<any>,
-) {
-  const { className, orientation = "horizontal", ...rest } = props
+export const Divider: React.FC<DividerProps> = React.forwardRef(
+  function Divider(props: DividerProps, ref: React.Ref<any>) {
+    const { className, orientation = "horizontal", ...rest } = props
 
-  const styles = {
-    vertical: {
-      borderLeftWidth: "1px",
-      height: "100%",
-    },
-    horizontal: {
-      borderBottomWidth: "1px",
-      width: "100%",
-    },
-  }
+    const styles = {
+      vertical: {
+        borderLeftWidth: "1px",
+        height: "100%",
+      },
+      horizontal: {
+        borderBottomWidth: "1px",
+        width: "100%",
+      },
+    }
 
-  return (
-    <chakra.hr
-      ref={ref}
-      role="separator"
-      aria-orientation={orientation}
-      {...rest}
-      __css={{
-        border: "0",
-        opacity: 0.6,
-        borderColor: "inherit",
-        borderStyle: "solid",
-        ...styles[orientation],
-      }}
-      className={cx("chakra-divider", props.className)}
-    />
-  )
-})
+    return (
+      <chakra.hr
+        ref={ref}
+        role="separator"
+        aria-orientation={orientation}
+        {...rest}
+        __css={{
+          border: "0",
+          opacity: 0.6,
+          borderColor: "inherit",
+          borderStyle: "solid",
+          ...styles[orientation],
+        }}
+        className={cx("chakra-divider", props.className)}
+      />
+    )
+  },
+)
 
 export type DividerProps = PropsOf<typeof chakra.hr> & {
   orientation?: "horizontal" | "vertical"

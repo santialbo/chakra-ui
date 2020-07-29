@@ -67,7 +67,9 @@ export type MenuButtonProps = PropsOf<typeof chakra.button> & {
   submenuIcon?: ReactElement
 }
 
-const StyledMenuButton = React.forwardRef(function StyledMenuButton(
+const StyledMenuButton: React.FC<PropsOf<
+  typeof chakra.button
+>> = React.forwardRef(function StyledMenuButton(
   props: PropsOf<typeof chakra.button>,
   ref: Ref<any>,
 ) {
@@ -91,10 +93,9 @@ const StyledMenuButton = React.forwardRef(function StyledMenuButton(
 /**
  * The trigger for the menu list. Must be a direct child of `Menu`.
  */
-export const MenuButton = forwardRef<MenuButtonProps>(function MenuButton(
-  props,
-  ref,
-) {
+export const MenuButton: React.FC<MenuButtonProps> = forwardRef<
+  MenuButtonProps
+>(function MenuButton(props, ref) {
   const { children, submenuIcon, as: Comp, ...otherProps } = props
 
   const ownProps = useMenuButton(otherProps)
@@ -124,23 +125,22 @@ if (__DEV__) {
 
 export type MenuListProps = PropsOf<typeof chakra.div>
 
-export const MenuList = React.forwardRef(function MenuList(
-  props: MenuListProps,
-  ref: Ref<any>,
-) {
-  const menulist = useMenuList(props)
-  const styles = useStyles()
-  return (
-    <chakra.div
-      {...menulist}
-      ref={mergeRefs(menulist.ref, ref)}
-      __css={{
-        outline: 0,
-        ...styles.list,
-      }}
-    />
-  )
-})
+export const MenuList: React.FC<MenuListProps> = React.forwardRef(
+  function MenuList(props: MenuListProps, ref: Ref<any>) {
+    const menulist = useMenuList(props)
+    const styles = useStyles()
+    return (
+      <chakra.div
+        {...menulist}
+        ref={mergeRefs(menulist.ref, ref)}
+        __css={{
+          outline: 0,
+          ...styles.list,
+        }}
+      />
+    )
+  },
+)
 
 if (__DEV__) {
   MenuList.displayName = "MenuList"
@@ -148,7 +148,9 @@ if (__DEV__) {
 
 //////////////////////////////////////////////////////////////////////////
 
-const StyledMenuItem = React.forwardRef(function StyledMenuItem(
+const StyledMenuItem: React.FC<PropsOf<
+  typeof chakra.button
+>> = React.forwardRef(function StyledMenuItem(
   props: PropsOf<typeof chakra.button>,
   ref: Ref<any>,
 ) {
@@ -190,39 +192,38 @@ interface MenuItemOptions extends Omit<UseMenuItemProps, "context"> {
 
 export type MenuItemProps = PropsOf<typeof StyledMenuItem> & MenuItemOptions
 
-export const MenuItem = forwardRef<MenuItemProps>(function MenuItem(
-  props,
-  ref,
-) {
-  const {
-    icon,
-    iconSpacing = "0.75rem",
-    command,
-    children,
-    ...otherProps
-  } = props
+export const MenuItem: React.FC<MenuItemProps> = forwardRef<MenuItemProps>(
+  function MenuItem(props, ref) {
+    const {
+      icon,
+      iconSpacing = "0.75rem",
+      command,
+      children,
+      ...otherProps
+    } = props
 
-  const ownProps = useMenuItem(otherProps)
-  const ownRef = mergeRefs(ownProps.ref, ref)
+    const ownProps = useMenuItem(otherProps)
+    const ownRef = mergeRefs(ownProps.ref, ref)
 
-  const shouldWrap = icon || command
+    const shouldWrap = icon || command
 
-  const _children = shouldWrap ? (
-    <chakra.span pointerEvents="none" flex="1">
-      {children}
-    </chakra.span>
-  ) : (
-    children
-  )
+    const _children = shouldWrap ? (
+      <chakra.span pointerEvents="none" flex="1">
+        {children}
+      </chakra.span>
+    ) : (
+      children
+    )
 
-  return (
-    <StyledMenuItem {...ownProps} ref={ownRef}>
-      {icon && <MenuIcon fontSize="0.8em" mr={iconSpacing} children={icon} />}
-      {_children}
-      {command && <MenuCommand children={command} />}
-    </StyledMenuItem>
-  )
-})
+    return (
+      <StyledMenuItem {...ownProps} ref={ownRef}>
+        {icon && <MenuIcon fontSize="0.8em" mr={iconSpacing} children={icon} />}
+        {_children}
+        {command && <MenuCommand children={command} />}
+      </StyledMenuItem>
+    )
+  },
+)
 
 if (__DEV__) {
   MenuItem.displayName = "MenuItem"
@@ -245,26 +246,26 @@ const CheckIcon = (props: PropsOf<"svg">) => (
   </svg>
 )
 
-export const MenuItemOption = forwardRef<MenuItemOptionProps>(
-  function MenuItemOption(props, ref) {
-    const { icon, iconSpacing = "0.75rem", ...htmlProps } = props
+export const MenuItemOption: React.FC<MenuItemOptionProps> = forwardRef<
+  MenuItemOptionProps
+>(function MenuItemOption(props, ref) {
+  const { icon, iconSpacing = "0.75rem", ...htmlProps } = props
 
-    const ownProps = useMenuOption(htmlProps)
-    const ownRef = mergeRefs(ownProps.ref, ref)
+  const ownProps = useMenuOption(htmlProps)
+  const ownRef = mergeRefs(ownProps.ref, ref)
 
-    return (
-      <StyledMenuItem {...ownProps} ref={ownRef}>
-        <MenuIcon
-          fontSize="0.8em"
-          children={icon || <CheckIcon />}
-          mr={iconSpacing}
-          visibility={props.isChecked ? "visible" : "hidden"}
-        />
-        <chakra.span flex="1">{ownProps.children}</chakra.span>
-      </StyledMenuItem>
-    )
-  },
-)
+  return (
+    <StyledMenuItem {...ownProps} ref={ownRef}>
+      <MenuIcon
+        fontSize="0.8em"
+        children={icon || <CheckIcon />}
+        mr={iconSpacing}
+        visibility={props.isChecked ? "visible" : "hidden"}
+      />
+      <chakra.span flex="1">{ownProps.children}</chakra.span>
+    </StyledMenuItem>
+  )
+})
 
 if (__DEV__) {
   MenuItemOption.displayName = "MenuItemOption"

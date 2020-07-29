@@ -61,48 +61,47 @@ export type SpinnerProps = PropsOf<typeof chakra.div> &
  *
  * @see Docs https://chakra-ui.com/components/spinner
  */
-export const Spinner = React.forwardRef(function Spinner(
-  props: SpinnerProps,
-  ref: React.Ref<any>,
-) {
-  const styles = useStyleConfig("Spinner", props)
+export const Spinner: React.FC<SpinnerProps> = React.forwardRef(
+  function Spinner(props: SpinnerProps, ref: React.Ref<any>) {
+    const styles = useStyleConfig("Spinner", props)
 
-  const {
-    label = "Loading...",
-    thickness = "2px",
-    speed = "0.45s",
-    color,
-    emptyColor = "transparent",
-    className,
-    ...rest
-  } = omitThemingProps(props)
+    const {
+      label = "Loading...",
+      thickness = "2px",
+      speed = "0.45s",
+      color,
+      emptyColor = "transparent",
+      className,
+      ...rest
+    } = omitThemingProps(props)
 
-  const _className = cx("chakra-spinner", className)
+    const _className = cx("chakra-spinner", className)
 
-  const spinnerStyles = {
-    display: "inline-block",
-    borderColor: "currentColor",
-    borderStyle: "solid",
-    borderRadius: "full",
-    borderWidth: thickness,
-    borderBottomColor: emptyColor,
-    borderLeftColor: emptyColor,
-    color: color,
-    animation: `${spin} ${speed} linear infinite`,
-    ...styles,
-  }
+    const spinnerStyles = {
+      display: "inline-block",
+      borderColor: "currentColor",
+      borderStyle: "solid",
+      borderRadius: "full",
+      borderWidth: thickness,
+      borderBottomColor: emptyColor,
+      borderLeftColor: emptyColor,
+      color: color,
+      animation: `${spin} ${speed} linear infinite`,
+      ...styles,
+    }
 
-  return (
-    <chakra.div
-      ref={ref}
-      __css={spinnerStyles}
-      className={_className}
-      {...rest}
-    >
-      {label && <VisuallyHidden>{label}</VisuallyHidden>}
-    </chakra.div>
-  )
-})
+    return (
+      <chakra.div
+        ref={ref}
+        __css={spinnerStyles}
+        className={_className}
+        {...rest}
+      >
+        {label && <VisuallyHidden>{label}</VisuallyHidden>}
+      </chakra.div>
+    )
+  },
+)
 
 if (__DEV__) {
   Spinner.displayName = "Spinner"
